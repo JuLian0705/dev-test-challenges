@@ -52,3 +52,13 @@ Your README **must** include a section called `## AI Usage` that answers:
 
 > Simple code + clear reasoning = HIGH SCORE  
 > Perfect code + poor explanation = PENALTY
+`## Uso de IA` que responda a las siguientes preguntas:
+
+1. ¿Qué partes de esta aplicación se generaron con herramientas de IA?
+La estructura base del código JavaScript, incluyendo el consumo de la API de GitHub y la lógica inicial para manejar el historial, fue generada con ayuda de herramientas de inteligencia artificial.
+2. ¿Qué partes escribiste manualmente?
+Realicé modificaciones en la lógica de las variables para adaptarlas a mi implementación, validé el correcto funcionamiento del almacenamiento en localStorage y separé el código en archivos distintos (HTML y JavaScript) para mejorar la organización del proyecto.
+3. ¿Qué partes de este código comprendes completamente?
+Comprendo el flujo completo de la aplicación: captura de datos desde el input, consumo de la API mediante fetch, manipulación del DOM para mostrar resultados y uso de localStorage para persistir el historial.
+4. ¿Qué partes te generan dudas?
+El manejo más avanzado de errores en la comunicación con la API y posibles mejoras en la optimización del código para escenarios de mayor escala.
