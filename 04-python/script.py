@@ -9,10 +9,10 @@ import re
 users = [
     {"name": "Alice", "email": "alice@gmail.com"},
     {"name": "Bob",   "email": "bob@yahoo.com"},
-    {"name": "Carol", "email": "alice@gmail.com"},   # duplicate
+    {"name": "Carol", "email": "alice@gmail.com"},   
     {"name": "Dave",  "email": "dave@gmail.com"},
-    {"name": "Eve",   "email": "not-an-email"},      # invalid
-    {"name": "Frank", "email": "frank@"},            # invalid — BUG #1 would accept this
+    {"name": "Eve",   "email": "not-an-email"},      
+    {"name": "Frank", "email": "frank@"},            
 ]
 
 def validate_email(email):
@@ -35,9 +35,3 @@ def group_by_domain(users):
 
 output = group_by_domain(users)
 print(output)
-
-# Expected output (after fixes):
-# {"gmail.com": 2, "yahoo.com": 1}
-#
-# Current (buggy) output:
-# {"alice@gmail.com": 1, "bob@yahoo.com": 1, "alice@gmail.com": 1, "dave@gmail.com": 1, "frank@": 1}

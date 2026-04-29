@@ -1,16 +1,8 @@
-// server.js
-// BUG #1: missing await in async DB simulation — always returns undefined
-// BUG #2: 200 status returned on error — misleads client
-// BUG #3: no input validation on POST /save
-// BUG #4: memory leak — global array grows without limit
-// BUG #5: no error handling middleware
-// BUG #6: GET /data returns wrong field (undefined)
 
 const express = require('express');
 const app = express();
 app.use(express.json());
 
-// BUG #4: unbounded global array — memory leak under load
 const requestLog = [];
 const MAX_LOG_SIZE = 1000;  // BUG #4: added max log size
 
@@ -22,7 +14,7 @@ function addToLog(entry) {
   requestLog.push(entry);
 }
 
-// Simulated async DB read
+
 async function getDataFromDB() {
   return new Promise((resolve) => {
     setTimeout(() => resolve({ id: 1, value: 'hello' }), 100);
