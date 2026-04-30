@@ -1,64 +1,64 @@
-# Challenge 05 — Mini App
+# Challenge 05 — Mini Application
 
-**Module weight:** 10% of total score  
+**Module weight:** 10% of the total score
 **Estimated time:** 90–120 min
 
-## What to Build
+## What to build
 
-A simple fullstack mini app that:
+A simple fullstack mini application that:
 
-1. Accepts a **text input** from the user (a search term or username)
-2. Calls a **real external API** with that input
-3. **Stores** the response (in-memory, localStorage, or a simple DB)
-4. **Displays** a list of past results
+1. Accepts a **text input** from the user (a search term or a username)
+2. Calls a real external API with that input Call a **real external API** with that input
+3. **Store** the response (in memory, localStorage, or a simple database) **Store** the response (in memory, localStorage, or a simple database)
+4. **Show** a list of previous results **Show** a list of previous results
 
-## Constraints
+## Restrictions
 
 - Use any stack you want (React, Vue, plain JS, Python + Flask, etc.)
-- Keep it simple — no overengineering
-- Must be functional and runnable locally
+- Keep it simple — no over-engineering
+- It must be functional and executable locally
 
-## Suggested APIs (free, no auth required)
+## Suggested APIs (free, no authentication required)
 
-- `https://api.github.com/users/{username}` — GitHub user info
+- `https://api.github.com/users/{username}` — GitHub user information
 - `https://api.thecatapi.com/v1/images/search` — random cat image
+
 - `https://jsonplaceholder.typicode.com/posts` — fake posts
 - Or any other public API you prefer
 
 ## Critical Requirement — AI Transparency Section
 
-Your README **must** include a section called `## AI Usage` that answers:
+Your README file **must** include a section called `## AI Usage` that answers the following questions:
 
-1. What parts of this app were generated using AI tools?
-2. What parts did you write manually?
-3. What do you fully understand in this code?
-4. What parts are you uncertain about?
+1. Which parts of this application were generated using AI tools? What parts of this application were generated using AI tools?
+2. What parts did you write manually? What parts did you write manually?
+3. What do you completely understand in this code? What do you completely understand in this code?
+4. What parts generate uncertainty for you? Which parts generate uncertainty for you?
 
-**This section is mandatory. Missing it = automatic rejection of this module.**
+This section is mandatory. Failing it = automatic rejection from this module.**
 
-## What to Submit
+## What to send
 
-- Your **repo URL**
+- The **URL of your repository**
 - Optional: demo link (Vercel, Netlify, Replit, etc.)
 
 ## Evaluation Criteria
 
-| Criterion | Weight |
+| Criterion | Weighting |
 |-----------|--------|
-| App works as described | 40% |
-| AI Transparency section present and honest | 30% |
-| Code is simple and not over-engineered | 15% |
-| Candidate can explain their own decisions | 15% |
+| The application works as described | 40% |
+| AI transparency section present and honest | 30% |
+| The code is simple and not overloaded | 15% |
+| The candidate can explain their own decisions | 15% |
 
-> Simple code + clear reasoning = HIGH SCORE  
-> Perfect code + poor explanation = PENALTY
-`## Uso de IA` que responda a las siguientes preguntas:
+> Simple code + clear reasoning = HIGH SCORE Perfect code + poor explanation = PENALTY
+## Use of AI to answer the following questions:
 
-1. ¿Qué partes de esta aplicación se generaron con herramientas de IA?
-La estructura base del código JavaScript, incluyendo el consumo de la API de GitHub y la lógica inicial para manejar el historial, fue generada con ayuda de herramientas de inteligencia artificial.
-2. ¿Qué partes escribiste manualmente?
-Realicé modificaciones en la lógica de las variables para adaptarlas a mi implementación, validé el correcto funcionamiento del almacenamiento en localStorage y separé el código en archivos distintos (HTML y JavaScript) para mejorar la organización del proyecto.
-3. ¿Qué partes de este código comprendes completamente?
-Comprendo el flujo completo de la aplicación: captura de datos desde el input, consumo de la API mediante fetch, manipulación del DOM para mostrar resultados y uso de localStorage para persistir el historial.
-4. ¿Qué partes te generan dudas?
-El manejo más avanzado de errores en la comunicación con la API y posibles mejoras en la optimización del código para escenarios de mayor escala.
+1. Which parts of this application were generated with AI tools? What parts of this application were generated with AI tools?
+The base structure of the JavaScript code, including the consumption of the GitHub API and the initial logic for handling the history, was generated with the help of artificial intelligence tools.
+2. What parts did you write by hand? What parts did you write by hand?
+I made modifications to the logic of the variables to adapt them to my implementation, validated the correct functioning of localStorage, and separated the code into different files (HTML and JavaScript) to improve the organization of the project.
+3. What parts of this code do you fully understand? Which parts of this code do you fully understand?
+I understand the complete flow of the application: capturing data from the input, consuming the API using fetch, manipulating the DOM to display results, and using localStorage to persist the history.
+4. What parts do you have doubts about? Which parts are unclear to you?
+The more advanced handling of errors in API communication and possible improvements in code optimization for larger-scale scenarios.
