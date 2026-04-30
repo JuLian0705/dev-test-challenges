@@ -1,0 +1,43 @@
+{
+  "info": {
+    "_postman_id": "e3e0a954-fe16-4183-b77b-1c787a6fb51c",
+    "name": "coleccion de pruebas",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "30753959",
+    "_collection_link": "https://go.postman.co/collection/30753959-e3e0a954-fe16-4183-b77b-1c787a6fb51c?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "guardar informacion",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    },
+    {
+      "name": "guardar",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    },
+    {
+      "name": "validacion data",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    },
+    {
+      "name": "peticion n8n",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    }
+  ]
+}

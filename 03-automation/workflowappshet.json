@@ -1,0 +1,482 @@
+{
+  "name": "Registro Usuarios Sheets",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "registro-usuario",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "f0c4d99e-ee02-4ee5-8578-ce92870c653c",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "position": [
+        -688,
+        224
+      ],
+      "typeVersion": 2.1,
+      "webhookId": "2c7cc745-19ca-47e4-b152-ec5adbb1e579"
+    },
+    {
+      "parameters": {
+        "functionCode": "const email = ($json.body?.email || $json.email || \"\").trim();\n\nconst regex = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]{2,}$/;\n\nreturn [{\n  name: $json.body?.name || $json.name,\n  email: email,\n  source: $json.body?.source || $json.source,\n  valid: regex.test(email)\n}];"
+      },
+      "id": "ff34550f-abf5-490e-9876-08c83703d72f",
+      "name": "Validar Email",
+      "type": "n8n-nodes-base.function",
+      "position": [
+        -480,
+        208
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "f8454c46-7f3d-4094-bd0d-e3950a7b1f50",
+              "leftValue": "={{ $json.valid }}",
+              "rightValue": false,
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "5a8f2c96-793b-4717-9826-8fcc1b86b1aa",
+      "name": "IF Valido",
+      "type": "n8n-nodes-base.if",
+      "position": [
+        -208,
+        208
+      ],
+      "typeVersion": 2.3
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "18LwI9KVpCwBWDiP8SyiFHziZ33zEz7e7AT5N2h9F7RA",
+          "mode": "list",
+          "cachedResultName": "prueba tecnica ",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/18LwI9KVpCwBWDiP8SyiFHziZ33zEz7e7AT5N2h9F7RA/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/18LwI9KVpCwBWDiP8SyiFHziZ33zEz7e7AT5N2h9F7RA/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "email",
+              "lookupValue": "={{ $json.email }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "0aaa221d-9882-4d89-a16a-3c1c6284233a",
+      "name": "Buscar Duplicado",
+      "type": "n8n-nodes-base.googleSheets",
+      "position": [
+        32,
+        96
+      ],
+      "typeVersion": 4.7,
+      "alwaysOutputData": true,
+      "executeOnce": false,
+      "retryOnFail": false,
+      "notesInFlow": false,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "tDzWdKKOXzpMI16v",
+          "name": "Google Sheets OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "a6e33569-9cf3-41a0-8278-97b931706a05",
+              "leftValue": "={{ Object.keys($json).length }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "80e37336-5193-4624-9017-ad7f9f3bf358",
+      "name": "IF Duplicado",
+      "type": "n8n-nodes-base.if",
+      "position": [
+        256,
+        192
+      ],
+      "typeVersion": 2.3
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "18LwI9KVpCwBWDiP8SyiFHziZ33zEz7e7AT5N2h9F7RA",
+          "mode": "list",
+          "cachedResultName": "prueba tecnica ",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/18LwI9KVpCwBWDiP8SyiFHziZ33zEz7e7AT5N2h9F7RA/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/18LwI9KVpCwBWDiP8SyiFHziZ33zEz7e7AT5N2h9F7RA/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "email": "={{ $('Webhook').item.json.body.email }}",
+            "name": "={{ $('Webhook').item.json.body.name }}",
+            "source ": "={{ $('Webhook').item.json.body.source }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "email",
+              "displayName": "email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "name",
+              "displayName": "name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "source ",
+              "displayName": "source ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "c6aefea3-aee9-4116-86a0-a13253a62277",
+      "name": "Guardar Usuario",
+      "type": "n8n-nodes-base.googleSheets",
+      "position": [
+        528,
+        -16
+      ],
+      "typeVersion": 4.7,
+      "retryOnFail": true,
+      "waitBetweenTries": 5000,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "tDzWdKKOXzpMI16v",
+          "name": "Google Sheets OAuth2 API"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "18LwI9KVpCwBWDiP8SyiFHziZ33zEz7e7AT5N2h9F7RA",
+          "mode": "list",
+          "cachedResultName": "prueba tecnica ",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/18LwI9KVpCwBWDiP8SyiFHziZ33zEz7e7AT5N2h9F7RA/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/18LwI9KVpCwBWDiP8SyiFHziZ33zEz7e7AT5N2h9F7RA/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "email": "={{ $('Webhook').item.json.body.email }}",
+            "name": "={{ $('Webhook').item.json.body.name }}",
+            "source ": "={{ $('Webhook').item.json.body.source }}",
+            "motivo": "={{ $json.message }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "email",
+              "displayName": "email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "name",
+              "displayName": "name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "source ",
+              "displayName": "source ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "motivo",
+              "displayName": "motivo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "10c2c332-c393-4f44-9760-dddf31c34328",
+      "name": "Log Error",
+      "type": "n8n-nodes-base.googleSheets",
+      "position": [
+        768,
+        96
+      ],
+      "typeVersion": 4.7,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "tDzWdKKOXzpMI16v",
+          "name": "Google Sheets OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{\n  \"status\": \"saved\",\n  \"mensaje\": \"Usuario registrado con éxito en el sistema\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        784,
+        -160
+      ],
+      "id": "cd87e4b4-8621-42f6-9342-cf8a8caa143a",
+      "name": "Respond to Webhook1"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{\n  \"status\": \"error\",\n  \"mensaje\": \"Hubo un problema técnico al procesar su solicitud. El error ha sido registrado.\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        1024,
+        112
+      ],
+      "id": "db57df35-cf7c-4480-aa57-98b6ac116f1f",
+      "name": "Respond to Webhook2"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{\n  \"status\": \"invalid\",\n  \"mensaje\": \"El formato del correo ingresado no es válido\"\n}",
+        "options": {}
+      },
+      "id": "807874f2-ab4a-42a0-bb4e-c7a2b9cdded7",
+      "name": "respuesta no valida",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "position": [
+        32,
+        400
+      ],
+      "typeVersion": 1.5
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{\n  \"status\": \"duplicate\",\n  \"mensaje\": \"El correo electrónico ya se encuentra en nuestra base de datos\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        528,
+        352
+      ],
+      "id": "8098e359-727c-4c57-b625-5620a07c1894",
+      "name": "correo duplicado en el shet"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Validar Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validar Email": {
+      "main": [
+        [
+          {
+            "node": "IF Valido",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF Valido": {
+      "main": [
+        [
+          {
+            "node": "Buscar Duplicado",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "respuesta no valida",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Buscar Duplicado": {
+      "main": [
+        [
+          {
+            "node": "IF Duplicado",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF Duplicado": {
+      "main": [
+        [
+          {
+            "node": "Guardar Usuario",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "correo duplicado en el shet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Guardar Usuario": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Log Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Log Error": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "af98f77f-c444-4b54-b5eb-f3069a02b98c",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "0e42de1fc95352aa5b076cbcfdb6647e0ac7d63a110488ab94ba5f69df943baa"
+  },
+  "id": "atKqwiBkvjpflDkL",
+  "tags": []
+}
